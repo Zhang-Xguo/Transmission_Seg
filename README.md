@@ -27,6 +27,7 @@ libs/pointops/            Pointops CUDA 扩展源码
 tools/train.py            训练入口
 tools/test.py             验证和指标计算入口
 scripts/                  数据划分、LAS 预处理、整场景推理与结果合并
+examples/full_block/      完整 block 输入、真值和输出目录约定
 prepare_gridnethd.py      GridNet-HD 数据预处理
 requirements.txt          已验证的 Linux CUDA 环境依赖
 ```
@@ -103,6 +104,10 @@ CUDA_VISIBLE_DEVICES=0 python tools/test.py \
 `test.log` 会报告整体 mIoU、mAcc、allAcc，以及各类别 IoU、Recall/Accuracy。预测数组保存在实验输出目录的 `result/` 中。
 
 ## 完整 LAS 场景推理
+
+仓库已预留 [`examples/full_block`](examples/full_block/README.md) 目录。将原始点云
+命名为 `input/input.las`，将对应真值命名为 `input/ground_truth.las`；推理结果放在
+`output/` 中。
 
 完整场景流程分为三步：
 
