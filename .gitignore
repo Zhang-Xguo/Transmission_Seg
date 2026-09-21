@@ -7,6 +7,7 @@ __pycache__/
 .vscode/
 
 data/
+data
 exp/
 outputs/
 logs/
@@ -27,3 +28,5 @@ dist/
 *.log
 
 !pointcept/datasets/preprocessing/scannet/meta_data/scannet_means.npz
+
+checkpoints/

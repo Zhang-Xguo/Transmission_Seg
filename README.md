@@ -2,6 +2,9 @@
 
 基于 Point Transformer V3（PTv3）的输电通道点云 7 类语义分割训练与推理代码。本仓库整理自实际使用的 Stage A 公共数据预训练、Stage B 输电数据微调、固定验证集评测和完整 LAS 场景推理流程。
 
+正在评估以 SpUNet-v1m1 替代 PTv3；模型、预训练参数转换与初始验证命令见
+[`SPUNET_BASELINE.md`](SPUNET_BASELINE.md)。
+
 本仓库只保存研发源码与配置，不包含模型权重、训练数据、LAS 样例、日志、MIPOT/Windows/C++ 工程或历史 BBOX 后处理代码。
 
 ## 类别定义
