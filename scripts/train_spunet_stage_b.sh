@@ -21,5 +21,5 @@ set +e
 STATUS=$?
 set -e
 "$PYTHON" scripts/report_spunet_stage_a.py \
-  --experiment "$OUT" --exit-code "$STATUS" --stage B
+  --experiment "$OUT" --exit-code "$STATUS" --stage B --expected-validations 3
 exit "$STATUS"

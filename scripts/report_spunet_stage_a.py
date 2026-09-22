@@ -12,6 +12,7 @@ def main():
     p.add_argument("--experiment", type=Path, required=True)
     p.add_argument("--exit-code", type=int, required=True)
     p.add_argument("--stage", choices=("A", "B"), default="A")
+    p.add_argument("--expected-validations", type=int, default=10)
     a = p.parse_args()
     log = a.experiment / "train.log"
     text = log.read_text(encoding="utf-8", errors="replace") if log.exists() else ""
@@ -25,7 +26,8 @@ def main():
         "stage": a.stage,
         "time_utc": datetime.now(timezone.utc).isoformat(),
         "exit_code": a.exit_code,
-        "completed": a.exit_code == 0 and finished and len(validations) == 10 and checkpoint.exists(),
+        "completed": a.exit_code == 0 and finished and len(validations) == a.expected_validations and checkpoint.exists(),
+        "expected_validations": a.expected_validations,
         "validation_cycles": len(validations),
         "best_miou": best_iou,
         "last_validation": validations[-1] if validations else None,
