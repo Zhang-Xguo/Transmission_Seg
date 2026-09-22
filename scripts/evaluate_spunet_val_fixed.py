@@ -52,14 +52,20 @@ def evaluate(data_root: Path, split: Path, results: list[Path]) -> dict:
         return float(np.mean([v[key] if v[key] is not None else 0.0
                               for v in per_class.values()]))
     valid_count = int(confusion.sum())
+    true_positive = int(tp.sum())
+    false_positive = int(predicted.sum() - true_positive)
+    false_negative = int(support.sum() - true_positive)
     return {
         "tiles": len(rows), "points": total_points, "valid_points": valid_count,
         "ignored_points": ignored_points,
         "overall": {
-            "accuracy_micro": ratio(int(tp.sum()), valid_count),
+            "accuracy_micro": ratio(true_positive, valid_count),
             "iou_macro": macro("iou"),
             "precision_macro": macro("precision"),
             "recall_macro": macro("recall"),
+            "iou_micro": ratio(true_positive, true_positive + false_positive + false_negative),
+            "precision_micro": ratio(true_positive, true_positive + false_positive),
+            "recall_micro": ratio(true_positive, true_positive + false_negative),
         },
         "per_class": per_class,
         "confusion_matrix_gt_rows_pred_columns": confusion.tolist(),
