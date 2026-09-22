@@ -11,6 +11,7 @@ def main():
     p = argparse.ArgumentParser()
     p.add_argument("--experiment", type=Path, required=True)
     p.add_argument("--exit-code", type=int, required=True)
+    p.add_argument("--stage", choices=("A", "B"), default="A")
     a = p.parse_args()
     log = a.experiment / "train.log"
     text = log.read_text(encoding="utf-8", errors="replace") if log.exists() else ""
@@ -21,6 +22,7 @@ def main():
     best_iou = max((x[0] for x in validations), default=None)
     checkpoint = a.experiment / "model" / "model_best.pth"
     report = {
+        "stage": a.stage,
         "time_utc": datetime.now(timezone.utc).isoformat(),
         "exit_code": a.exit_code,
         "completed": a.exit_code == 0 and finished and len(validations) == 10 and checkpoint.exists(),
@@ -33,7 +35,7 @@ def main():
     a.experiment.mkdir(parents=True, exist_ok=True)
     path = a.experiment / "TRAIN_STATUS.json"
     path.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    print(f"Stage A status written to {path}: completed={report['completed']}", flush=True)
+    print(f"Stage {a.stage} status written to {path}: completed={report['completed']}", flush=True)
 
 
 if __name__ == "__main__":
