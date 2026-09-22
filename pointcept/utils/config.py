@@ -664,8 +664,9 @@ class DictAction(Action):
                     break
             return end
 
-        # Strip ' and " characters and replace whitespace.
-        val = val.strip("'\"").replace(" ", "")
+        # Remove surrounding syntax only; spaces inside a value may be part
+        # of a filesystem path (for example, Windows "Program Files").
+        val = val.strip().strip("'\"")
         is_tuple = False
         if val.startswith("(") and val.endswith(")"):
             is_tuple = True
