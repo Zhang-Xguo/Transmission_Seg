@@ -14,8 +14,9 @@ def main():
     a = p.parse_args()
     log = a.experiment / "train.log"
     text = log.read_text(encoding="utf-8", errors="replace") if log.exists() else ""
+    number = r"\d+(?:\.\d+)?"
     validations = [tuple(map(float, row)) for row in re.findall(
-        r"Val result: mIoU/mAcc/allAcc ([0-9.]+)/([0-9.]+)/([0-9.]+)", text)]
+        rf"Val result: mIoU/mAcc/allAcc ({number})/({number})/({number})", text)]
     finished = "Best mIoU:" in text
     best_iou = max((x[0] for x in validations), default=None)
     checkpoint = a.experiment / "model" / "model_best.pth"
