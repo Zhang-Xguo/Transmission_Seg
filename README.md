@@ -18,6 +18,7 @@
 | 4 | 建筑 | building |
 | 5 | 地面 | ground |
 | 6 | 其他 | other |
+| 7 | 拉线 | structural cable |
 
 训练和预测标签均为 `0-6`，`255` 仅表示需要忽略的 GT 点。
 
